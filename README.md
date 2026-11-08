@@ -107,28 +107,27 @@ Running the script from source code will require some knowledge of both Git and 
 
 #### Requirements
 - Install Python 3.12 (recommended)
-- Install Pipenv package via `pip install -U pipenv`
+- Install [uv](https://github.com/astral-sh/uv) via `pipx install uv`
 
 #### Prepare
 - Clone this repository
-- Run `pipenv install` inside repository directory
-- If successful, you can use `pipenv shell` to open Pipenv Venv Shell inside
+- Run `uv sync` inside repository directory
 
 #### Launch
-- Use `python .\app.py -h` inside Pipenv Venv Shell to see the help page
+- Use `uv run python .\app.py -h` to see the help page
 
 <br>
 
 ## Dev dependencies
 Python dev and recommended build: `Python 3.12.x [64 bit (AMD64)]`
-Pipenv profile includes `pyinstaller` package (for packing code into PE (.exe) file) that you can install via `pipenv install --dev` command.   
-If you want to change something in the code, I strongly recommend that you set the PEP-8 linters such as `pylint`, `bandit`, `flake8`, also code formatter `black`.  
+uv installs `pyinstaller` (for packing code into PE (.exe) file) automatically via `uv sync`.
+If you want to change something in the code, I strongly recommend that you set the PEP-8 linters such as `pylint`, `bandit`, `flake8`, also code formatter `black`.
 Dont forget to re-format code after changes to keep it within the PEP-8.
 
 ## Creating an EXE
 To package a set of scripts into a standalone distributable directory, or a single EXE file, use the `pyinstaller` module:
-- `pipenv run pyinstaller --onefile .\app.py` -- for single EXE file (smaller size, but slower runtime due to the temp cache)
-- `pipenv run pyinstaller .\AddonsUpdateTool_dir.spec` -- for standalone directory (larger whole folder size, but fast runtime)
+- `uv run pyinstaller --onefile .\app.py` -- for single EXE file (smaller size, but slower runtime due to the temp cache)
+- `uv run pyinstaller .\AddonsUpdateTool_dir.spec` -- for standalone directory (larger whole folder size, but fast runtime)
 
 ## Additional information
 In addition to `app.py` I also provide scripts to manually update the Vault DB and the Game DB: `vault_updater.py` and `game_updater.py`. You can also use the `-h` argument to view the help page
