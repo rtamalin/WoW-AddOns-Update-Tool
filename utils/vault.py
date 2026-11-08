@@ -9,6 +9,7 @@ from shutil import rmtree
 from threading import Thread
 from typing import List
 
+from dulwich.client import LsRemoteResult
 from dulwich.porcelain import clean, clone, fetch, ls_remote, pull, reset
 from dulwich.repo import Repo
 from utils.log import log
@@ -93,7 +94,7 @@ class Repository:
                     self.branch,
                 )
                 return False
-        self.head: str = Repo(self.repo_path).head().decode()
+        self.head: str = Repo(self.repo_path).head().hex()
         log.debug("Updated: %s/%s@%s", self.author, self.name, self.branch)
         return True
 
@@ -105,7 +106,7 @@ class Repository:
             False: branch not found
         """
         try:
-            refs: dict = ls_remote(self.url)
+            refs: LsRemoteResult = ls_remote(self.url)
         except Exception:
             log.error(
                 "Something went wrong while checking %s/%s remote refs",
@@ -114,7 +115,7 @@ class Repository:
             )
             return False
         branch_ref: str = f"refs/heads/{self.branch}".encode()
-        if branch_ref not in refs.keys():
+        if branch_ref not in refs.refs.keys():
             log.error("%s@%s doesnt exist on GitHub", self.name, self.branch)
             return False
         return True
@@ -148,7 +149,7 @@ class Repository:
                 self.repo_path,
             )
             return False
-        self.head: str = Repo(self.repo_path).head().decode()
+        self.head: str = Repo(self.repo_path).head().hex()
         log.debug("Downloaded: %s/%s@%s", self.author, self.name, self.branch)
         return True
 

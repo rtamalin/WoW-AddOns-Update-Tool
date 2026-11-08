@@ -6,6 +6,7 @@ dependencies = [
     "colorlog",
     "urllib3",
     "pyyaml",
+    "dulwich>=1.2.21",
 ]
 
 [project.optional-dependencies]
