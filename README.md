@@ -112,6 +112,7 @@ Running the script from source code will require some knowledge of both Git and 
 #### Prepare
 - Clone this repository
 - Run `uv sync` inside repository directory
+- For development (linters, formatters, pyinstaller): `uv pip install -e ".[dev]"`
 
 #### Launch
 - Use `uv run python .\app.py -h` to see the help page
@@ -120,7 +121,7 @@ Running the script from source code will require some knowledge of both Git and 
 
 ## Dev dependencies
 Python dev and recommended build: `Python 3.12.x [64 bit (AMD64)]`
-uv installs `pyinstaller` (for packing code into PE (.exe) file) automatically via `uv sync`.
+Dev dependencies (including `pyinstaller` for packing code into PE (.exe) file) are installed via `uv pip install -e ".[dev]"`.
 If you want to change something in the code, I strongly recommend that you set the PEP-8 linters such as `pylint`, `bandit`, `flake8`, also code formatter `black`.
 Dont forget to re-format code after changes to keep it within the PEP-8.
 
